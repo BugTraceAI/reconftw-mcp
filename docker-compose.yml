@@ -1,0 +1,101 @@
+# reconFTW MCP Server - Docker Compose Configuration
+# 
+# Usage:
+#   docker-compose up -d          # Start in background
+#   docker-compose logs -f        # View logs
+#   docker-compose down           # Stop and remove
+#
+# For STDIO mode (Claude Code integration):
+#   docker-compose --profile stdio up
+#
+# For SSE mode (remote access):
+#   docker-compose up -d
+
+version: '3.8'
+
+services:
+  reconftw-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: reconftw-mcp:latest
+    container_name: reconftw-mcp
+    
+    # SSE mode configuration (default)
+    command: ["mcp", "--sse"]
+    
+    ports:
+      - "${MCP_PORT:-8002}:8002"
+    
+    volumes:
+      # Persist scan results
+      - reconftw-output:/opt/reconftw/output
+      # Optional: Mount custom config
+      # - ./reconftw.cfg:/root/.config/reconftw/reconftw.cfg:ro
+      # Optional: Mount wordlists
+      # - ./wordlists:/opt/wordlists:ro
+    
+    environment:
+      - RECONFTW_DIR=/root/reconftw
+      - OUTPUT_DIR=/opt/reconftw/output
+      - MCP_PORT=8002
+      - SSE_MODE=true
+      # Add your API keys here or use .env file
+      # - SHODAN_API_KEY=${SHODAN_API_KEY:-}
+      # - VIRUSTOTAL_API_KEY=${VIRUSTOTAL_API_KEY:-}
+      # - CENSYS_API_ID=${CENSYS_API_ID:-}
+      # - CENSYS_API_SECRET=${CENSYS_API_SECRET:-}
+    
+    # Required for network scanning
+    cap_add:
+      - NET_ADMIN
+    security_opt:
+      - seccomp:unconfined
+    
+    # Network mode for better scanning capabilities
+    # network_mode: host  # Uncomment for full network access
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  # Optional: STDIO mode for Claude Code integration
+  # Run with: docker-compose --profile stdio run --rm reconftw-mcp-stdio
+  reconftw-mcp-stdio:
+    profiles:
+      - stdio
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: reconftw-mcp:latest
+    container_name: reconftw-mcp-stdio
+    
+    command: ["mcp"]
+    
+    volumes:
+      - reconftw-output:/opt/reconftw/output
+    
+    environment:
+      - RECONFTW_DIR=/root/reconftw
+      - OUTPUT_DIR=/opt/reconftw/output
+    
+    cap_add:
+      - NET_ADMIN
+    security_opt:
+      - seccomp:unconfined
+    
+    stdin_open: true
+    tty: true
+
+volumes:
+  reconftw-output:
+    driver: local
+
+networks:
+  default:
+    name: reconftw-mcp-network
