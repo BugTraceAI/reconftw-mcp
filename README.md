@@ -1,10 +1,12 @@
 # reconFTW MCP Server
 
+**Powered by [reconFTW](https://github.com/six2dez/reconftw) — Created by [@six2dez](https://github.com/six2dez)**
+
 [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/six2dez/reconftw)
 [![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-blue?style=for-the-badge)](https://modelcontextprotocol.io/)
 [![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 
-**reconFTW MCP Server** wraps the powerful [reconFTW](https://github.com/six2dez/reconftw) reconnaissance tool with the Model Context Protocol (MCP), enabling AI assistants like Claude to perform automated security reconnaissance.
+**reconFTW MCP Server** is a wrapper for the incredibly powerful [reconFTW](https://github.com/six2dez/reconftw) reconnaissance framework. This project enables AI assistants to leverage the best-in-class automation created by **six2dez**.
 
 ## 🎯 Features
 
