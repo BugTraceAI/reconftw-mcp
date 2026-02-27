@@ -48,9 +48,9 @@ RUN chmod +x /entrypoint.sh
 # Expose MCP SSE port
 EXPOSE 8002
 
-# Health check
+# Health check (handles exit code 28 as success since SSE streams timeout)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8002/health || exit 1
+    CMD curl -sS -m 2 http://localhost:8002/sse >/dev/null; res=$?; [ $res -eq 0 ] || [ $res -eq 28 ] || exit 1
 
 # Default to MCP server mode
 ENTRYPOINT ["/entrypoint.sh"]
