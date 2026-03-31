@@ -48,10 +48,6 @@ _LAN_TRANSPORT_SECURITY = TransportSecuritySettings(
 )
 
 
-# Import tools and resources
-import tools
-import resources
-
 
 def run_mcp_server(
     transport: str = "stdio",
@@ -85,31 +81,4 @@ def run_mcp_server(
     mcp_server.run(transport=transport)
 
 
-if __name__ == "__main__":
-    import argparse
-    
-    parser = argparse.ArgumentParser(description="reconFTW MCP Server")
-    parser.add_argument(
-        "--sse",
-        action="store_true",
-        help="Use SSE transport instead of STDIO"
-    )
-    parser.add_argument(
-        "--host",
-        default="0.0.0.0",
-        help="Host for SSE server (default: 0.0.0.0)"
-    )
-    parser.add_argument(
-        "--port",
-        type=int,
-        default=8002,
-        help="Port for SSE server (default: 8002)"
-    )
-    
-    args = parser.parse_args()
-    
-    run_mcp_server(
-        transport="sse" if args.sse else "stdio",
-        host=args.host,
-        port=args.port
-    )
+

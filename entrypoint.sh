@@ -64,10 +64,10 @@ case "$1" in
         
         if [ "$2" = "--sse" ] || [ "$SSE_MODE" = "true" ]; then
             log_info "SSE mode enabled on port $MCP_PORT"
-            exec python3 mcp_server.py --sse --port "$MCP_PORT" --host "0.0.0.0"
+            exec python3 main.py --sse --port "$MCP_PORT" --host "0.0.0.0"
         else
             log_info "STDIO mode enabled"
-            exec python3 mcp_server.py
+            exec python3 main.py
         fi
         ;;
     
@@ -113,6 +113,6 @@ case "$1" in
         log_info "Use 'help' command to see available options"
         
         cd /opt/reconftw-mcp
-        exec python3 mcp_server.py
+        exec python3 main.py
         ;;
 esac

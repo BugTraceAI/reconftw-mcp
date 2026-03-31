@@ -31,6 +31,7 @@ WORKDIR /opt/reconftw-mcp
 
 # Copy MCP server files
 COPY mcp_server.py .
+COPY main.py .
 COPY tools.py .
 COPY resources.py .
 COPY requirements.txt .
