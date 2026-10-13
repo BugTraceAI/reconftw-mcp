@@ -6,7 +6,11 @@
 [![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-blue?style=for-the-badge)](https://modelcontextprotocol.io/)
 [![Python](https://img.shields.io/badge/Python-3776AB.svg?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 
-**reconFTW MCP Server** is a wrapper for the incredibly powerful [reconFTW](https://github.com/six2dez/reconftw) reconnaissance framework. This project enables AI assistants to leverage the best-in-class automation created by **six2dez**.
+**reconFTW MCP Server** exposes the [reconFTW](https://github.com/six2dez/reconftw) reconnaissance framework through the Model Context Protocol so compatible AI assistants can start reconnaissance tasks and inspect their results. The underlying reconFTW framework is created by **six2dez**.
+
+This repository is part of the [BugTraceAI integration ecosystem](https://github.com/BugTraceAI/BugTraceAI). Use it with compatible MCP clients and follow the selected runtime's configuration.
+
+[Install](#-quick-start) · [MCP tools](#-mcp-tools) · [Configuration](#-configuration) · [Explore the suite](https://github.com/BugTraceAI/BugTraceAI)
 
 ## 🎯 Features
 
@@ -23,7 +27,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/reconftw-mcp.git
+git clone https://github.com/BugTraceAI/reconftw-mcp.git
 cd reconftw-mcp
 
 # Build and run (SSE mode)
